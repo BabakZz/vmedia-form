@@ -1,91 +1,88 @@
-import { NextRequest, NextResponse } from 'next/server';
+// app/api/submit/route.ts
+import { NextResponse } from 'next/server';
 
-export const runtime = 'nodejs';
+const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+const CHAT_ID = process.env.TELEGRAM_CHAT_ID; // می‌تونی چندتا با , جدا کنی
 
-const BOT = process.env.TELEGRAM_BOT_TOKEN;
-const CHAT = process.env.TELEGRAM_CHAT_ID;
+// پیام را بسازیم (ساده و ایمن)
+function formatMessage(payload: any, context: any) {
+  const lines: string[] = ['📥 فرم جدید دریافت شد'];
 
-export async function POST(req: NextRequest) {
   try {
-    if (!BOT || !CHAT) {
-      return NextResponse.json(
-        { error: 'server_env_missing', detail: 'TELEGRAM_BOT_TOKEN/TELEGRAM_CHAT_ID تنظیم نشده.' },
-        { status: 500 }
-      );
+    // هر step/سوال => مقدار
+    const entries = Object.entries(payload || {});
+    if (entries.length === 0) lines.push('— بدون فیلد —');
+
+    for (const [k, v] of entries) {
+      const value = Array.isArray(v) ? v.join(', ') : (v ?? '');
+      lines.push(`• ${k}: ${String(value)}`);
     }
+  } catch {
+    lines.push('⚠️ خطا در parse payload');
+  }
 
-    let json: any = {};
-    try {
-      json = await req.json();
-    } catch (e: any) {
-      return NextResponse.json(
-        { error: 'bad_request', detail: 'JSON بدنه درخواست نامعتبر است.' },
-        { status: 400 }
-      );
-    }
+  // کمی کانتکست مفید
+  if (context) {
+    const url = context.referer ? `\n🔗 ${context.referer}` : '';
+    const ua = context.userAgent ? `\n🖥 ${context.userAgent}` : '';
+    lines.push(`${url}${ua}`);
+  }
 
-    const d = (json?.payload ?? {}) as Record<string, any>;
-    const c = (json?.context ?? {}) as Record<string, any>;
+  const text = lines.join('\n').trim();
+  return text.length ? text : '— empty —';
+}
 
-    // کمکی: آرایه → متن فارسی
-    const arr = (x: any) => Array.isArray(x) && x.length ? x.join('، ') : '';
+// ارسال به تلگرام با تقسیم پیام‌های طولانی
+async function sendToTelegram(text: string) {
+  if (!BOT_TOKEN || !CHAT_ID) {
+    throw new Error('TELEGRAM envs missing');
+  }
 
-    const lines: string[] = [
-      '📮 V•Media — Brand Brief',
-      d.brandNameFa ? `• نام برند (FA): ${d.brandNameFa}` : '',
-      d.brandNameEn ? `• نام برند (EN): ${d.brandNameEn}` : '',
-      d.activityType ? `• نوع فعالیت: ${d.activityType}` : '',
-      d.location ? `• موقعیت: ${d.location}` : '',
-      d.link ? `• لینک: ${d.link}` : '',
-      arr(d.goals) ? `• اهداف: ${arr(d.goals)}${d.goals?.includes('other') && d.goalsOtherText ? ` — (${d.goalsOtherText})` : ''}` : '',
-      d.mainGoal ? `• هدف نهایی: ${d.mainGoal}` : '',
-      d.likedBrands ? `• رفرنس‌ها: ${d.likedBrands}` : '',
-      arr(d.desiredMood) ? `• مود: ${arr(d.desiredMood)}` : '',
-      d.primaryColors ? `• رنگ‌های اصلی: ${d.primaryColors}` : '',
-      d.proposedColors ? `• رنگ‌های پیشنهادی: ${d.proposedColors}` : '',
-      arr(d.toneOfVoice) ? `• لحن: ${arr(d.toneOfVoice)}` : '',
-      (arr(d.audienceAge) || arr(d.audienceGender) || d.audienceGeo)
-        ? `• مخاطب: ${[arr(d.audienceAge), arr(d.audienceGender), d.audienceGeo || ''].filter(Boolean).join(' — ')}`
-        : '',
-      d.audienceInterests ? `• علایق/رفتار خرید: ${d.audienceInterests}` : '',
-      d.contentNeeds ? `• نیازهای محتوا/خدمات: ${d.contentNeeds}` : '',
-      d.competitors ? `• رقبا: ${d.competitors}` : '',
-      d.notes ? `• نکات: ${d.notes}` : '',
-      d.finalFeeling ? `• حس نهایی: ${d.finalFeeling}` : '',
-      arr(d.discovery) ? `• آشنایی با ما: ${arr(d.discovery)}` : '',
-      c.referer ? `• صفحه: ${c.referer}` : '',
-      c.ts ? `• زمان: ${c.ts}` : '',
-      c.userAgent ? `• UA: ${c.userAgent}` : '',
-    ].filter(Boolean);
+  const api = (path: string) => `https://api.telegram.org/bot${BOT_TOKEN}/${path}`;
 
-    const text = lines.join('\n') || '📮 V•Media — Brand Brief (بدون فیلد)';
+  // حداکثر 4096 کاراکتر
+  const chunks: string[] = [];
+  for (let i = 0; i < text.length; i += 3900) {
+    chunks.push(text.slice(i, i + 3900));
+  }
 
-    let tgRes: Response;
-    try {
-      tgRes = await fetch(`https://api.telegram.org/bot${BOT}/sendMessage`, {
+  const chatIds = CHAT_ID.split(',').map((s) => s.trim()).filter(Boolean);
+
+  for (const part of chunks) {
+    // برای هر chat_id بفرست
+    for (const id of chatIds) {
+      const res = await fetch(api('sendMessage'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          chat_id: CHAT,
-          text,                    // ⬅️ بدون parse_mode تا خطای Markdown نگیری
+          chat_id: id,
+          text: part,
           disable_web_page_preview: true,
+          parse_mode: 'HTML', // اگر متن خام می‌فرستی، می‌تونی برداری
         }),
       });
-    } catch (e: any) {
-      return NextResponse.json(
-        { error: 'telegram_failed', detail: `fetch_failed: ${e?.message || e}` },
-        { status: 502 }
-      );
-    }
 
-    if (!tgRes.ok) {
-      const detail = await tgRes.text();
-      return NextResponse.json({ error: 'telegram_failed', detail }, { status: 502 });
+      if (!res.ok) {
+        const body = await res.text().catch(() => '');
+        throw new Error(`Telegram ${res.status}: ${body}`);
+      }
     }
+  }
+}
+
+export async function POST(req: Request) {
+  try {
+    const { payload, context } = await req.json().catch(() => ({}));
+    const text = formatMessage(payload, context);
+
+    await sendToTelegram(text);
 
     return NextResponse.json({ ok: true });
-  } catch (e: any) {
-    console.error('API /api/submit error:', e);
-    return NextResponse.json({ error: 'server_error', detail: e?.message || String(e) }, { status: 500 });
+  } catch (err: any) {
+    console.error('SUBMIT_ERROR', err?.message || err);
+    return NextResponse.json(
+      { ok: false, error: err?.message || 'submit failed' },
+      { status: 500 }
+    );
   }
 }
