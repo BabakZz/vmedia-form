@@ -9,7 +9,6 @@ import {
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
-import { arrayMove as arrMove } from 'array-move';
 
 /** ===== لینک RAW گیت‌هاب را اینجا بگذار ===== */
 const GITHUB_RAW_URL =
