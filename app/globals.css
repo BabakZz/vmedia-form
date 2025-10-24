@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* تم تیره به مرورگر بگو */
+:root { color-scheme: dark; }
+
+/* ───────── Inputs / Textareas ───────── */
+.input-dark{
+  @apply w-full rounded-2xl px-4 py-3
+         text-white placeholder-white/70
+         bg-[#0f1115]/80
+         border border-white/10
+         outline-none transition
+         shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]
+         focus:ring-4 focus:ring-white/15 focus:border-white/20;
+}
+.textarea-dark{
+  @apply w-full min-h-[110px] rounded-2xl px-4 py-3
+         text-white placeholder-white/70
+         bg-[#0f1115]/80
+         border border-white/10
+         outline-none transition resize-y
+         shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]
+         focus:ring-4 focus:ring-white/15 focus:border-white/20;
+}
+
+/* ───────── Select (Apple-style) ───────── */
+.select-apple{
+  @apply w-full rounded-2xl px-4 py-3 pr-10
+         text-white
+         bg-[#0f1115]/80
+         border border-white/10
+         outline-none transition
+         backdrop-blur-md
+         shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]
+         focus:ring-4 focus:ring-white/15 focus:border-white/20;
+  appearance: none;
+  background-image:
+    url("data:image/svg+xml,%3Csvg width='22' height='22' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5' stroke='white' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: left 0.9rem center; /* RTL */
+  padding-left: 2.4rem;
+}
+/* لیست بازشده خوانا بماند */
+select.select-apple option{ color:#0a0a0a; background:#ffffff; }
+select.select-apple option[value=""]{ color:#9ca3af; }
+.select-apple::-ms-expand{ display:none; }
+
+/* ───────── Autofill Overrides (Chrome/Edge/Safari) ───────── */
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: #ffffff;
+  transition: background-color 9999s ease-in-out 0s;
+  box-shadow: 0 0 0px 1000px rgba(15,17,21,0.8) inset !important;
+  border: 1px solid rgba(255,255,255,0.10) !important;
+}
+
+/* ───────── Autofill (Firefox) ───────── */
+input:autofill,
+textarea:autofill,
+select:autofill {
+  box-shadow: 0 0 0px 1000px rgba(15,17,21,0.8) inset !important;
+  -moz-text-fill-color: #ffffff !important;
+}
+
+/* ───────── Check / Radio ───────── */
+input[type="checkbox"], input[type="radio"]{ accent-color:#60a5fa; }
+
+/* ───────── Cards / Sections ───────── */
+.card-apple{
+  @apply rounded-[28px] border border-white/10
+         bg-gradient-to-b from-white/[0.06] to-white/[0.02]
+         backdrop-blur-xl
+         shadow-[0_20px_70px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.06)];
+}
+.section-title{ @apply text-2xl md:text-3xl font-semibold tracking-tight; }
+.divider-soft{ @apply h-px w-full bg-gradient-to-r from-transparent via-white/15 to-transparent my-6; }
+
+/* ───────── Buttons ───────── */
+.btn-primary{
+  @apply inline-flex items-center justify-center rounded-full px-6 py-2.5
+         bg-blue-500/95 text-white
+         shadow-[0_10px_30px_rgba(59,130,246,0.35)]
+         transition will-change-transform hover:brightness-110 active:scale-[0.98];
+}
+.btn-outline{
+  @apply inline-flex items-center justify-center rounded-full px-5 py-2
+         border border-white/20 text-white/90
+         transition hover:border-white/35;
+}
+/* Chips (چند انتخابی‌های شکیل) */
+.choices { @apply grid grid-cols-1 md:grid-cols-2 gap-2; }
+.choice {
+  @apply inline-flex items-center justify-between gap-3 rounded-xl px-4 py-2
+         bg-[#0f1115]/80 border border-white/10 text-white/90
+         hover:border-white/25 transition cursor-pointer select-none;
+}
+.choice input { @apply w-4 h-4 accent-blue-400; }
+.choice--active { @apply border-white/30 bg-white/[0.08]; }
