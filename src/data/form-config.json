@@ -1,20 +1,17 @@
 {
   "id": "brand-brief",
   "version": 2,
-
   "branding": {
     "logoSrc": "/logo-vmedia.svg",
     "heroSrc": "/hero-placeholder.svg",
     "brandName": "V•Media"
   },
-
   "landing": {
     "title": "V•Media Brand Brief",
     "subtitle": "لطفاً فرم را دقیق پر کن تا تیم وی‌مدیا دقیق‌ترین استراتژی و طراحی را برای برندت بسازد.",
     "ctaLabel": "شروع فرم",
     "ctaHref": "/form/brief"
   },
-
   "messages": {
     "loading": "در حال بارگذاری…",
     "formTitle": "فرم اطلاعات برند",
@@ -25,31 +22,63 @@
     "doneTitle": "مرسی! ✅",
     "doneText": "اطلاعاتت با موفقیت ارسال شد. به‌زودی باهات تماس می‌گیریم."
   },
-
   "ctas": {
     "next": "مرحله بعد",
     "back": "برگشت",
     "submit": "ارسال نهایی"
   },
-
   "ui": {
-    "grid": { "mdCols": 2 },
+    "grid": {
+      "mdCols": 2
+    },
     "progress": true
   },
-
   "steps": [
     {
       "id": "general",
       "title": "اطلاعات کلی",
       "questions": [
-        { "id": "brandNameFa", "kind": "text", "label": "نام برند (فارسی)", "placeholder": "مثلاً وی‌مدیا" },
-        { "id": "brandNameEn", "kind": "text", "label": "نام برند (انگلیسی)", "placeholder": "V•Media" },
-        { "id": "activityType", "kind": "text", "label": "نوع فعالیت", "placeholder": "کافه / پوشاک / خدمات / ..." },
-        { "id": "location", "kind": "text", "label": "موقعیت مکانی", "placeholder": "تهران، ایران، یا شهر دیگر" },
-        { "id": "link", "kind": "text", "label": "لینک اینستاگرام / وب‌سایت", "placeholder": "https://instagram.com/yourbrand", "ui": { "col": "full" } }
+        {
+          "id": "brandNameFa",
+          "kind": "text",
+          "label": "نام برند (فارسی)",
+          "placeholder": "مثلاً وی‌مدیا"
+        },
+        {
+          "id": "brandNameEn",
+          "kind": "text",
+          "label": "نام برند (انگلیسی)",
+          "placeholder": "V•Media"
+        },
+        {
+          "id": "activityType",
+          "kind": "text",
+          "label": "نوع فعالیت",
+          "placeholder": "کافه / پوشاک / خدمات / ..."
+        },
+        {
+          "id": "location",
+          "kind": "text",
+          "label": "موقعیت مکانی",
+          "placeholder": "تهران، ایران، یا شهر دیگر"
+        },
+        {
+          "id": "link",
+          "kind": "text",
+          "label": "لینک اینستاگرام / وب‌سایت",
+          "placeholder": "https://instagram.com/yourbrand",
+          "ui": {
+            "col": "full"
+          }
+        },
+        {
+          "id": "pnumber",
+          "kind": "text",
+          "label": "شماره تلفن",
+          "placeholder": "0912xxxxxxx"
+        }
       ]
     },
-
     {
       "id": "goals",
       "title": "اهداف همکاری",
@@ -59,31 +88,51 @@
           "kind": "multi",
           "label": "هدف همکاری با V•Media (چند انتخابی)",
           "options": [
-            { "id": "redesign_ig", "label": "بازطراحی کامل صفحه اینستاگرام" },
-            { "id": "content", "label": "تولید محتوای تصویری (عکس/ویدیو)" },
-            { "id": "identity", "label": "طراحی هویت بصری (لوگو، پالت، فونت…)" },
-            { "id": "ads", "label": "تبلیغات دیجیتال و رشد پیج" },
-            { "id": "other", "label": "سایر" }
+            {
+              "id": "redesign_ig",
+              "label": "بازطراحی کامل صفحه اینستاگرام"
+            },
+            {
+              "id": "content",
+              "label": "تولید محتوای تصویری (عکس/ویدیو)"
+            },
+            {
+              "id": "identity",
+              "label": "طراحی هویت بصری (لوگو، پالت، فونت…)"
+            },
+            {
+              "id": "ads",
+              "label": "تبلیغات دیجیتال و رشد پیج"
+            },
+            {
+              "id": "other",
+              "label": "سایر"
+            }
           ],
-          "ui": { "col": "full" }
+          "ui": {
+            "col": "full"
+          }
         },
         {
           "id": "goalsOtherText",
           "kind": "text",
           "label": "اگر «سایر» انتخاب شد، توضیح بده",
           "placeholder": "مثلاً طراحی بسته‌بندی یا تدوین ویدیو",
-          "ui": { "col": "full" }
+          "ui": {
+            "col": "full"
+          }
         },
         {
           "id": "mainGoal",
           "kind": "textarea",
           "label": "هدف نهایی یا نزدیک از همکاری",
           "placeholder": "افزایش فروش / رشد برند / حضور حرفه‌ای در اینستاگرام",
-          "ui": { "col": "full" }
+          "ui": {
+            "col": "full"
+          }
         }
       ]
     },
-
     {
       "id": "visual",
       "title": "سلیقه بصری و هویت",
@@ -93,34 +142,88 @@
           "kind": "multi",
           "label": "فضا و حس دلخواه برند (چند انتخابی)",
           "options": [
-            { "id": "luxury", "label": "لوکس" },
-            { "id": "friendly", "label": "صمیمی" },
-            { "id": "industrial", "label": "صنعتی" },
-            { "id": "modern", "label": "مدرن" },
-            { "id": "natural", "label": "طبیعی" },
-            { "id": "minimal", "label": "مینیمال" }
+            {
+              "id": "luxury",
+              "label": "لوکس"
+            },
+            {
+              "id": "friendly",
+              "label": "صمیمی"
+            },
+            {
+              "id": "industrial",
+              "label": "صنعتی"
+            },
+            {
+              "id": "modern",
+              "label": "مدرن"
+            },
+            {
+              "id": "natural",
+              "label": "طبیعی"
+            },
+            {
+              "id": "minimal",
+              "label": "مینیمال"
+            }
           ],
-          "ui": { "col": "full" }
+          "ui": {
+            "col": "full"
+          }
         },
         {
           "id": "toneOfVoice",
           "kind": "multi",
           "label": "لحن برند (Tone of Voice)",
           "options": [
-            { "id": "formal", "label": "رسمی" },
-            { "id": "friendly", "label": "دوستانه" },
-            { "id": "funny", "label": "شوخ" },
-            { "id": "motivational", "label": "انگیزشی" },
-            { "id": "professional", "label": "حرفه‌ای" }
+            {
+              "id": "formal",
+              "label": "رسمی"
+            },
+            {
+              "id": "friendly",
+              "label": "دوستانه"
+            },
+            {
+              "id": "funny",
+              "label": "شوخ"
+            },
+            {
+              "id": "motivational",
+              "label": "انگیزشی"
+            },
+            {
+              "id": "professional",
+              "label": "حرفه‌ای"
+            }
           ],
-          "ui": { "col": "full" }
+          "ui": {
+            "col": "full"
+          }
         },
-        { "id": "primaryColors", "kind": "text", "label": "رنگ‌های اصلی برند", "placeholder": "کد رنگ‌ها یا نام آن‌ها" },
-        { "id": "proposedColors", "kind": "text", "label": "رنگ‌های پیشنهادی جدید", "placeholder": "در صورت نیاز به بازطراحی" },
-        { "id": "likedBrands", "kind": "textarea", "label": "برندها یا صفحات مرجع که می‌پسندی", "placeholder": "مثلاً برند X یا صفحه Y", "ui": { "col": "full" } }
+        {
+          "id": "primaryColors",
+          "kind": "text",
+          "label": "رنگ‌های اصلی برند",
+          "placeholder": "کد رنگ‌ها یا نام آن‌ها"
+        },
+        {
+          "id": "proposedColors",
+          "kind": "text",
+          "label": "رنگ‌های پیشنهادی جدید",
+          "placeholder": "در صورت نیاز به بازطراحی"
+        },
+        {
+          "id": "likedBrands",
+          "kind": "textarea",
+          "label": "برندها یا صفحات مرجع که می‌پسندی",
+          "placeholder": "مثلاً برند X یا صفحه Y",
+          "ui": {
+            "col": "full"
+          }
+        }
       ]
     },
-
     {
       "id": "audience",
       "title": "مخاطب، محتوا و حس نهایی",
@@ -130,10 +233,22 @@
           "kind": "multi",
           "label": "سن حدودی مخاطب",
           "options": [
-            { "id": "18-24", "label": "۱۸ تا ۲۴" },
-            { "id": "25-34", "label": "۲۵ تا ۳۴" },
-            { "id": "35-44", "label": "۳۵ تا ۴۴" },
-            { "id": "45+", "label": "۴۵ سال به بالا" }
+            {
+              "id": "18-24",
+              "label": "۱۸ تا ۲۴"
+            },
+            {
+              "id": "25-34",
+              "label": "۲۵ تا ۳۴"
+            },
+            {
+              "id": "35-44",
+              "label": "۳۵ تا ۴۴"
+            },
+            {
+              "id": "45+",
+              "label": "۴۵ سال به بالا"
+            }
           ]
         },
         {
@@ -141,9 +256,18 @@
           "kind": "multi",
           "label": "جنسیت غالب مخاطب",
           "options": [
-            { "id": "female", "label": "زن" },
-            { "id": "male", "label": "مرد" },
-            { "id": "mixed", "label": "ترکیب" }
+            {
+              "id": "female",
+              "label": "زن"
+            },
+            {
+              "id": "male",
+              "label": "مرد"
+            },
+            {
+              "id": "mixed",
+              "label": "ترکیب"
+            }
           ]
         },
         {
@@ -151,25 +275,80 @@
           "kind": "text",
           "label": "موقعیت جغرافیایی مخاطب",
           "placeholder": "مثلاً تهران / ایران / بین‌الملل",
-          "ui": { "col": "full" }
+          "ui": {
+            "col": "full"
+          }
         },
-        { "id": "audienceInterests", "kind": "textarea", "label": "علایق یا رفتار خرید مخاطب", "ui": { "col": "full" } },
-        { "id": "contentNeeds", "kind": "textarea", "label": "نوع محتوایی که نیاز داری (پست، ویدیو، رویداد...)", "ui": { "col": "full" } },
-        { "id": "competitors", "kind": "textarea", "label": "رقبا یا صفحات مشابه", "ui": { "col": "full" } },
-        { "id": "notes", "kind": "textarea", "label": "نکات خاص یا توضیحات تکمیلی", "ui": { "col": "full" } },
-        { "id": "finalFeeling", "kind": "text", "label": "در نهایت، حس مدنظرت چیه؟", "placeholder": "مثلاً اعتماد / انرژی / مینیمال / لوکس", "ui": { "col": "full" } },
+        {
+          "id": "audienceInterests",
+          "kind": "textarea",
+          "label": "علایق یا رفتار خرید مخاطب",
+          "ui": {
+            "col": "full"
+          }
+        },
+        {
+          "id": "contentNeeds",
+          "kind": "textarea",
+          "label": "نوع محتوایی که نیاز داری (پست، ویدیو، رویداد...)",
+          "ui": {
+            "col": "full"
+          }
+        },
+        {
+          "id": "competitors",
+          "kind": "textarea",
+          "label": "رقبا یا صفحات مشابه",
+          "ui": {
+            "col": "full"
+          }
+        },
+        {
+          "id": "notes",
+          "kind": "textarea",
+          "label": "نکات خاص یا توضیحات تکمیلی",
+          "ui": {
+            "col": "full"
+          }
+        },
+        {
+          "id": "finalFeeling",
+          "kind": "text",
+          "label": "در نهایت، حس مدنظرت چیه؟",
+          "placeholder": "مثلاً اعتماد / انرژی / مینیمال / لوکس",
+          "ui": {
+            "col": "full"
+          }
+        },
         {
           "id": "discovery",
           "kind": "multi",
           "label": "چطور با وی‌مدیا آشنا شدی؟",
           "options": [
-            { "id": "instagram", "label": "اینستاگرام" },
-            { "id": "website", "label": "وب‌سایت" },
-            { "id": "referral", "label": "معرفی دوستان" },
-            { "id": "ads", "label": "تبلیغات" },
-            { "id": "other", "label": "سایر" }
+            {
+              "id": "instagram",
+              "label": "اینستاگرام"
+            },
+            {
+              "id": "website",
+              "label": "وب‌سایت"
+            },
+            {
+              "id": "referral",
+              "label": "معرفی دوستان"
+            },
+            {
+              "id": "ads",
+              "label": "تبلیغات"
+            },
+            {
+              "id": "other",
+              "label": "سایر"
+            }
           ],
-          "ui": { "col": "full" }
+          "ui": {
+            "col": "full"
+          }
         }
       ]
     }
